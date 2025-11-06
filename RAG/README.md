@@ -2,6 +2,28 @@
 
 本目录包含使用 XPULink API 构建 RAG（Retrieval-Augmented Generation）应用的完整示例代码。
 
+## 💻 本地环境依赖
+
+本系统对本地计算机的要求非常低，您只需要安装基本的 Python 环境即可运行所有示例：
+
+### 最低配置要求
+- **操作系统**: Windows 10+/macOS 10.15+/Ubuntu 18.04+
+- **Python 版本**: 3.8-3.11（推荐 3.9）
+- **内存**: 至少 4GB RAM
+- **存储空间**: 至少 100MB 可用空间
+- **网络连接**: 稳定的互联网连接（用于访问云端 API）
+
+### 本地安装依赖
+```bash
+# 基础依赖
+pip install -r requirements.txt
+
+# 或者手动安装核心组件
+pip install llama-index-core llama-index-llms-openai python-dotenv pypdf
+```
+
+> ⚠️ **重要**: 所有机器学习模型（包括 BGE-M3 Embedding 模型和 Qwen3-32B 大语言模型）均部署在 XPULink 云端，本地无需安装任何大型模型文件。
+
 ## 📁 文件说明
 
 ### 1. `process.ipynb`
