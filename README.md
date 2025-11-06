@@ -8,12 +8,14 @@
 - 基础文本生成模型调用
 - RAG（检索增强生成）应用实现
 - 自定义 Embedding 模型集成
+- 使用 OpenBench 进行模型评估和测试
 
 ## 功能特性
 
 - **文本生成**: 演示如何调用云端大语言模型（如 Qwen3-32B）进行对话和文本生成
 - **RAG 应用**: 展示如何使用 LlamaIndex 框架构建检索增强生成系统
 - **自定义 Embedding**: 提供 OpenAI 兼容的 Embedding 模型实现
+- **模型评估**: 使用 OpenBench 框架对 XPULink 模型进行标准化评估和测试
 - **生产就绪**: 包含错误处理、环境变量配置等最佳实践
 
 ## 环境要求
@@ -112,6 +114,47 @@ jupyter notebook process.ipynb
 - 批处理支持，提高效率
 - 完整的错误处理
 
+### 3. 模型评估（OpenBench）
+
+使用 OpenBench 框架对 XPULink 托管的模型进行标准化评估和测试。
+
+**查看详细指南**：
+```bash
+cd Evaluation
+cat README.md
+```
+
+**快速开始**：
+
+1. 安装 OpenBench：
+```bash
+pip install openbench
+```
+
+2. 配置环境变量：
+```bash
+export XPU_API_KEY=your_api_key_here
+export OPENAI_API_BASE=https://www.xpulink.ai/v1
+```
+
+3. 运行评估：
+```bash
+openbench evaluate \
+  --model-type openai \
+  --model-name qwen3-32b \
+  --api-key $XPU_API_KEY \
+  --base-url https://www.xpulink.ai/v1 \
+  --benchmark mmlu
+```
+
+**评估功能**：
+- 支持多种标准基准测试（MMLU、GSM8K、HellaSwag 等）
+- 自定义评估任务
+- 详细的性能报告和分析
+- 批量对比多个模型
+
+完整的使用说明和代码示例请参考 `Evaluation/README.md`。
+
 ## API 配置说明
 
 ### 文本生成 API
@@ -139,8 +182,10 @@ function_call/
 ├── README.md              # 项目说明文档
 ├── requirements.txt       # Python 依赖列表
 ├── text_model.py         # 基础文本生成示例
-└── RAG/
-    └── process.ipynb     # RAG 应用示例（Jupyter Notebook）
+├── RAG/
+│   └── process.ipynb     # RAG 应用示例（Jupyter Notebook）
+└── Evaluation/
+    └── README.md         # OpenBench 模型评估指南
 ```
 
 ## 依赖说明
