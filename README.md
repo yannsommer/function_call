@@ -7,6 +7,7 @@
 本项目提供了使用 XPULink API 的完整示例，包括：
 - 基础文本生成模型调用
 - RAG（检索增强生成）应用实现
+- 基于 BGE-M3 Embedding 模型的 PDF 文档问答系统
 - 自定义 Embedding 模型集成
 - 使用 OpenBench 进行模型评估和测试
 
@@ -14,6 +15,7 @@
 
 - **文本生成**: 演示如何调用云端大语言模型（如 Qwen3-32B）进行对话和文本生成
 - **RAG 应用**: 展示如何使用 LlamaIndex 框架构建检索增强生成系统
+- **PDF 智能问答**: 使用 BGE-M3 多语言 Embedding 模型构建完整的 PDF 文档问答系统
 - **自定义 Embedding**: 提供 OpenAI 兼容的 Embedding 模型实现
 - **模型评估**: 使用 OpenBench 框架对 XPULink 模型进行标准化评估和测试
 - **生产就绪**: 包含错误处理、环境变量配置等最佳实践
@@ -94,25 +96,50 @@ print("模型返回内容：", result["choices"][0]["message"]["content"])
 
 ### 2. RAG（检索增强生成）
 
-RAG 示例展示了如何使用 LlamaIndex 框架构建智能文档问答系统。
+RAG 目录包含两个完整的文档问答系统示例，展示如何使用 LlamaIndex 框架构建智能检索增强生成应用。
 
-**运行 Jupyter Notebook**：
+#### 📄 PDF 智能问答系统（推荐）
+
+**使用 BGE-M3 Embedding 模型的 PDF RAG 系统**：
+```bash
+cd RAG
+# 准备 PDF 文档
+mkdir -p data
+cp your_document.pdf data/
+
+# 运行 Notebook
+jupyter notebook pdf_rag_with_bge_m3.ipynb
+```
+
+**核心功能**：
+- ✅ 专门针对 PDF 文档优化
+- ✅ 使用 BGE-M3 多语言 Embedding 模型（对中文支持极佳）
+- ✅ 完整的文档加载、向量化、检索流程
+- ✅ 基于检索内容的智能问答
+- ✅ 交互式查询界面
+- ✅ 详细的中文注释和使用说明
+
+**BGE-M3 模型优势**：
+- 🌍 支持 100+ 种语言，中英文效果特别好
+- 📊 在多个基准测试中表现优异
+- 🎯 支持最长 8192 token 的输入
+- 🔄 支持密集检索、稀疏检索和多向量检索
+
+#### 🔧 基础 RAG 示例
+
+**使用 OpenAI 兼容 API 的通用 RAG 系统**：
 ```bash
 cd RAG
 jupyter notebook process.ipynb
 ```
-
-**功能包括**：
-- 文档加载和处理
-- 自定义 OpenAI 兼容的 Embedding 模型
-- 向量化存储和检索
-- 基于文档内容的智能问答
 
 **主要特性**：
 - 使用 `SimpleDirectoryReader` 加载文档
 - 实现了 `OpenAICompatibleEmbedding` 类，支持 OpenAI 风格的 API
 - 批处理支持，提高效率
 - 完整的错误处理
+
+**详细使用说明请参考** `RAG/README.md`
 
 ### 3. 模型评估（OpenBench）
 
@@ -179,13 +206,15 @@ openbench evaluate \
 
 ```
 function_call/
-├── README.md              # 项目说明文档
-├── requirements.txt       # Python 依赖列表
-├── text_model.py         # 基础文本生成示例
+├── README.md                      # 项目说明文档
+├── requirements.txt               # Python 依赖列表
+├── text_model.py                 # 基础文本生成示例
 ├── RAG/
-│   └── process.ipynb     # RAG 应用示例（Jupyter Notebook）
+│   ├── README.md                 # RAG 示例详细说明
+│   ├── process.ipynb             # 基础 RAG 应用示例
+│   └── pdf_rag_with_bge_m3.ipynb # PDF 智能问答系统（使用 BGE-M3）⭐ 推荐
 └── Evaluation/
-    └── README.md         # OpenBench 模型评估指南
+    └── README.md                 # OpenBench 模型评估指南
 ```
 
 ## 依赖说明
@@ -205,7 +234,10 @@ function_call/
 A: 访问 [www.xpulink.ai](https://www.xpulink.ai) 注册账号并在控制台获取您的 API Key。
 
 ### Q: 支持哪些模型？
-A: 目前示例中使用了 `qwen3-32b` 文本生成模型和 `text-embedding-ada-002` Embedding 模型。更多模型请查看 XPULink 官方文档。
+A: 目前示例中使用了：
+- 文本生成模型：`qwen3-32b`
+- Embedding 模型：`bge-m3`（推荐，特别适合中文）、`text-embedding-ada-002`
+更多模型请查看 XPULink 官方文档。
 
 ### Q: API 请求失败怎么办？
 A: 请检查：
