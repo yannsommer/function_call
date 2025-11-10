@@ -369,7 +369,7 @@ XPULink 平台的所有模型服务都基于 **vLLM (Very Large Language Model)*
 #### 7. **高可扩展性**
 - 支持张量并行和流水线并行
 - 轻松扩展到多 GPU、多节点集群
-- 适配各类 GPU（NVIDIA A100、H100、A10 等）
+- 适配各类 GPU（MXC500，NVIDIA A100、H100、A10 等）
 
 ### 💡 为什么选择 vLLM？
 
